@@ -1,5 +1,5 @@
 import { useShallow } from 'zustand/react/shallow';
-import { useBearStore } from '../../bears/bears.store';
+import { useBearStore } from '../../stores/bears/bears.store';
 import { WhiteCard } from '../../components';
 
 export const BearPage = () => {
