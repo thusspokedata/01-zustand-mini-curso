@@ -80,11 +80,19 @@ export const BearDisplay = () => {
   // useShallow: shallow compare of the state to avoid re-renders when the state is the same.
   const bears = useBearStore(useShallow((state) => state.bears));
   const doNothing = useBearStore((state) => state.doNothing);
+  const addBear = useBearStore((state) => state.addBear);
+  const clearBears = useBearStore((state) => state.clearBears);
 
   return (
     <WhiteCard>
       <h1>Osos Totales</h1>
       <button onClick={doNothing}>Do Nothing</button>
+      <button className="mt-2" onClick={addBear}>
+        addBear
+      </button>
+      <button className="mt-2" onClick={clearBears}>
+        clearBears
+      </button>
       <pre>{JSON.stringify(bears, null, 2)}</pre>
     </WhiteCard>
   );
