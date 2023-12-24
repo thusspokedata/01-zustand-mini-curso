@@ -1,19 +1,53 @@
+import { DragEvent, useState } from 'react';
 import {
   IoCheckmarkCircleOutline,
   IoEllipsisHorizontalOutline,
 } from 'react-icons/io5';
-import { SingleTask } from '../../pages/02-objects/SingleTask';
-import { Task } from '../interfaces';
+import { SingleTask } from './SingleTask';
+import { Task, TaskStatus } from '../interfaces';
+import { useTasksStore } from '../../stores';
+import classNames from 'classnames';
 
 interface Props {
   title: string;
   tasks: Task[];
-  value: 'open' | 'in-progress' | 'done';
+  value: TaskStatus;
 }
 
 export const JiraTasks = ({ title, value, tasks }: Props) => {
+  const isDragging = useTasksStore((state) => !!state.draggingTaskId);
+  const changeTaskStatus = useTasksStore((state) => state.changeTaskStatus);
+  const draggingTaskId = useTasksStore((state) => state.draggingTaskId);
+  const [onDragOver, setOnDragOver] = useState(false);
+
+  console.log(isDragging);
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    console.log('onDragOver', value);
+    setOnDragOver(true);
+  };
+  const handleDragLeave = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setOnDragOver(false);
+  };
+  const handleDrop = (event: DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setOnDragOver(false);
+    changeTaskStatus(draggingTaskId!, value);
+  };
   return (
-    <div className="!text-black relative flex flex-col rounded-[20px]  bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full !p-4 3xl:p-![18px]">
+    <div
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+      className={classNames(
+        '!text-black border-4 relative flex flex-col rounded-[20px] bg-white bg-clip-border shadow-3xl shadow-shadow-500  w-full !p-4 3xl:p-![18px]',
+        {
+          'border-blue-500 border-dotted': isDragging,
+          'border-green-500 border-dashed': isDragging && onDragOver,
+        },
+      )}
+    >
       {/* Task Header */}
       <div className="relative flex flex-row justify-between">
         <div className="flex items-center justify-center">

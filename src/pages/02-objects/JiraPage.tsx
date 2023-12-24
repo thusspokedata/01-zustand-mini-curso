@@ -13,9 +13,6 @@ export const JiraPage = ({ title }: JiraPageProps) => {
   const inProgressTasks = useTasksStore((state) =>
     state.getTaskByStatus('in-progress'),
   );
-  console.log('🚀 ~ pendingTask:', pendingTasks);
-  console.log('🚀 ~ inProgressTask:', inProgressTasks);
-  console.log('🚀 ~ doneTasks:', doneTasks);
 
   return (
     <>
