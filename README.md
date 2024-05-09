@@ -12,3 +12,4 @@ Este es un cascarón de proyecto, siéntete libre de usarlo para tus proyectos.
 2. Instalar dependencias ```npm install```
 3. Correr en desarrollo ```npm run dev```
 
+https://docs.pmnd.rs/zustand/getting-started/introduction
