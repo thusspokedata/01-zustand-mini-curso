@@ -38,16 +38,20 @@ export const useBearStore = create<BearStore>()(
       ],
 
       totalBears: () => {
-        return get().blackBears + get().pandaBears + get().polarBears;
+        return get().blackBears + get().pandaBears + get().polarBears + get().bears.length;
       },
 
       increasePopulationBlackBears: (by: number) =>
         set((state) => ({ blackBears: state.blackBears + by })),
+
       increasePopulationPandaBears: (by: number) =>
         set((state) => ({ pandaBears: state.pandaBears + by })),
+
       increasePopulationPolarBears: (by: number) =>
         set((state) => ({ polarBears: state.polarBears + by })),
+
       doNothing: () => set((state) => ({ bears: [...state.bears] })),
+
       addBear: () =>
         set((state) => ({
           bears: [
@@ -58,6 +62,7 @@ export const useBearStore = create<BearStore>()(
             },
           ],
         })),
+
       clearBears: () => set({ bears: [] }),
     }),
     { name: 'bear-storage' },
